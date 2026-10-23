@@ -30,18 +30,15 @@ const themeScript = `
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html 
-      lang="en" 
+    <html
+      lang="en"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-        <script 
-          id="theme-script"
-          dangerouslySetInnerHTML={{ __html: themeScript }} 
-        />
-      </head>
       <body className="min-h-full flex flex-col">
+        <Script id="theme-script" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
         {children}
       </body>
     </html>
