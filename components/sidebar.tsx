@@ -6,13 +6,19 @@ import { usePathname } from "next/navigation";
 import { Clock, Menu, PenLine, Settings, Users, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-const navItems = [
-    { label: "Team", href: "/team", icon: Users },
-    { label: "Signatures", href: "/signatures", icon: PenLine },
-    { label: "History", href: "/history", icon: Clock },
-];
 type NavItem = { label: string; href: string; icon: LucideIcon };
-const settingsItem: NavItem = { label: "Settings", href: "/settings", icon: Settings };
+
+const navItems: NavItem[] = [
+  { label: "Team", href: "/team", icon: Users },
+  { label: "Signatures", href: "/signatures", icon: PenLine },
+  { label: "History", href: "/history", icon: Clock },
+];
+
+const settingsItem: NavItem = {
+  label: "Settings",
+  href: "/settings",
+  icon: Settings,
+};
 
 function NavLink({
   item,
@@ -42,26 +48,6 @@ function NavLink({
     </Link>
   );
 }
-
-export function Sidebar() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (!open) return;
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [open]);
 
 function Logo() {
   return (
@@ -102,9 +88,87 @@ function SidebarContent({
       </nav>
 
       <div className="mt-auto border-t border-border pt-4">
-        <NavLink item={settingsItem} pathname={pathname} onNavigate={onNavigate} />
+        <NavLink
+          item={settingsItem}
+          pathname={pathname}
+          onNavigate={onNavigate}
+        />
       </div>
     </div>
   );
 }
+
+export function Sidebar() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <>
+      {/* Desktop: fixed sidebar */}
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 border-r border-border bg-surface md:block">
+        <SidebarContent pathname={pathname} />
+      </aside>
+
+      {/* Mobile: top bar */}
+      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface px-4 py-2 md:hidden">
+        <Logo />
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
+          aria-expanded={open}
+          className="flex h-11 w-11 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tenant"
+        >
+          <Menu size={24} aria-hidden="true" />
+        </button>
+      </header>
+
+      {/* Mobile: drawer */}
+      {open && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-black/50"
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Main menu"
+            className="relative h-full w-72 max-w-[85%] bg-surface shadow-xl"
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-lg text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tenant"
+            >
+              <X size={24} aria-hidden="true" />
+            </button>
+            <SidebarContent
+              pathname={pathname}
+              onNavigate={() => setOpen(false)}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
