@@ -39,3 +39,11 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+html[data-font-size="small"] {
+  font-size: 87.5%;
+}
+
+html[data-font-size="large"] {
+  font-size: 112.5%;
+}
