@@ -10,7 +10,7 @@
 
 **A modern, multi-tenant B2B email signature generator with dynamic mapping and RBAC.**
 
-SignatureHub is a full-stack SaaS platform designed for companies to centrally manage, standardize, and distribute professional email signatures across different departments and tenants.
+Signature Studio is a full-stack SaaS platform designed for companies to centrally manage, standardize, and distribute professional email signatures across different departments and tenants.
 
 <br/>
 
@@ -26,7 +26,7 @@ SignatureHub is a full-stack SaaS platform designed for companies to centrally m
 
 ## Overview
 
-SignatureHub streamlines the creation of corporate email signatures. Instead of manually editing HTML files, administrators can paste raw HTML templates with variables (e.g., `${name}`, `${email}`). The system automatically parses these tags and builds a user-friendly, dynamic form.
+Signature Studio streamlines the creation of corporate email signatures. Instead of manually editing HTML files, administrators can paste raw HTML templates with variables (e.g., `${name}`, `${email}`). The system automatically parses these tags and builds a user-friendly, dynamic form.
 
 Built with a multi-tenant architecture, the platform isolates templates and user bases per company, dynamically adapting the UI's primary colors to match the active tenant's branding.
 
@@ -73,7 +73,7 @@ Built with a multi-tenant architecture, the platform isolates templates and user
 ## 📁 Project Structure
 
 ```text
-SignatureHub/
+Signature Studio/
 ├── frontend/          # React + Vite application
 │   └── src/
 │       ├── components/
@@ -103,8 +103,8 @@ SignatureHub/
 
 ```bash
 # Clone the repository
-git clone https://github.com/dev-nobre/SignatureHub.git
-cd SignatureHub
+git clone https://github.com/dev-nobre/Signature-Studio.git
+cd Signature-Studio
 
 # Install backend dependencies
 cd backend
