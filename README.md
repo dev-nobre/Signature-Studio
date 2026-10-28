@@ -6,7 +6,7 @@
 
 <br/><br/>
 
-# ✒️ SignatureHub
+# ✒️ Signature Studio
 
 **A modern, multi-tenant B2B email signature generator with dynamic mapping and RBAC.**
 
