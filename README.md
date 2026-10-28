@@ -1,24 +1,18 @@
-<div align="center">
+ <div align="center">
 
 <img src="https://img.shields.io/badge/Status-In%20Development-f97316?style=flat-square" alt="Status" />
 <img src="https://img.shields.io/badge/Version-0.1.0-853DD8?style=flat-square" alt="Version" />
 <img src="https://img.shields.io/badge/License-MIT-22c55e?style=flat-square" alt="License" />
 
-<br/><br/>
+<br /><br />
 
-# ✒️ Signature Studio
+# Signature Studio
 
-**A modern, multi-tenant B2B email signature generator with dynamic mapping and RBAC.**
+**A modern workspace for creating and managing professional email signatures.**
 
-Signature Studio is a full-stack SaaS platform designed for companies to centrally manage, standardize, and distribute professional email signatures across different departments and tenants.
+Signature Studio is a web application in development that aims to help teams create, standardize, and manage professional email signatures through a centralized workspace.
 
-<br/>
-
-[![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+The project currently focuses on the application layout, navigation, and appearance preferences, laying the foundation for a more complete signature management platform.
 
 </div>
 
@@ -26,68 +20,82 @@ Signature Studio is a full-stack SaaS platform designed for companies to central
 
 ## Overview
 
-Signature Studio streamlines the creation of corporate email signatures. Instead of manually editing HTML files, administrators can paste raw HTML templates with variables (e.g., `${name}`, `${email}`). The system automatically parses these tags and builds a user-friendly, dynamic form.
+Managing consistent email signatures across a team can be time-consuming. Signature Studio aims to simplify this process by bringing signature creation and management into one workspace.
 
-Built with a multi-tenant architecture, the platform isolates templates and user bases per company, dynamically adapting the UI's primary colors to match the active tenant's branding.
-
----
+The application is being developed with a focus on a clean interface, reusable components, maintainable architecture, and a foundation that can support future team management and signature generation features.
 
 ## Features
 
-**🛠️ Dynamic Signature Builder**
-* **HTML Parsing:** Automatically detects variables (e.g., `${role}`, `${phone}`) from raw HTML inputs.
-* **Dynamic Form Generation:** Maps extracted variables to a clean, user-friendly toggle and input list.
-* **Live Preview:** Real-time visual rendering of the signature as data is typed.
-* **Export & Copy:** Sanitized HTML export ready for Gmail, Outlook, or Apple Mail.
+### Currently Implemented
 
-**Authentication & Multi-Tenant**
-* OAuth 2.0 integration (Google & Microsoft Workspace).
-* Complete data isolation per company/tenant.
-* Dynamic UI theming (Accent colors dynamically change based on the active company).
-* Native Light and Dark mode support.
+- **Application layout:** Shared application structure and navigation.
+- **Sidebar navigation:** Access to the main application sections.
+- **Appearance settings:** Dedicated settings page for interface preferences.
+- **Light and dark themes:** Manually selectable themes with local persistence.
+- **System theme preference:** Support for following the operating system's appearance preference.
+- **Font size settings:** Small, Default, and Large options.
+- **Persistent preferences:** Theme and font size preferences are saved locally in the browser.
+- **Responsive interface styling:** Utility-based styling with Tailwind CSS.
+- **Reusable UI components:** Shared components for consistent interactions and visual states.
 
-**Role-Based Access Control (RBAC)**
-* **Super Admin:** Global platform access and tenant creation.
-* **Admin/Moderator:** Granular permissions (e.g., can manage templates but cannot add users).
-* **Common User:** View-only access to assigned signatures.
-* **Conditional UI:** Action buttons (Add, Edit, Delete) are strictly hidden from users without clearance.
+> Features are listed as implemented only when they are present in the current application code. See the roadmap for planned functionality.
 
-**Audit & Management**
-* User management by departments or roles (e.g., `@Devs`, `@Sales`).
-* Signature assignment (Global, specific users, or by department).
-* **Audit Logs:** Dedicated tracking for "Templates" and "Users" (tracks who created, edited, or deleted records).
+### Planned Features
+
+- **Signature editor:** Create and edit email signatures.
+- **Dynamic templates:** Support reusable signature templates and configurable fields.
+- **Live preview:** Preview signatures while editing.
+- **HTML export:** Copy or export signatures for use in email clients.
+- **Team management:** Organize users and signatures by team or department.
+- **Authentication:** Secure sign-in and account management.
+- **Role-based access control (RBAC):** Permission-based access to administrative features.
+- **Multi-tenant architecture:** Support separate organizations and their settings.
+- **Audit logs:** Track important changes to templates and user records.
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology | 
-| ----- | ----- | 
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Lucide Icons | 
-| **Backend** | Node.js, Express, TypeScript | 
-| **Database** | PostgreSQL (via Prisma ORM) | 
-| **Auth** | OAuth 2.0 (Google/Microsoft), JWT | 
+| Layer | Technology |
+| --- | --- |
+| Framework | Next.js with App Router |
+| Language | TypeScript |
+| UI Library | React |
+| Styling | Tailwind CSS 4 |
+| Build Tooling | Next.js with Turbopack |
+| Linting | ESLint |
+| Package Manager | npm |
+
+Additional infrastructure, including database persistence, authentication, and authorization, may be introduced as the application evolves.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
+
+The project uses the Next.js App Router and organizes application routes and reusable components separately.
 
 ```text
-Signature Studio/
-├── frontend/          # React + Vite application
-│   └── src/
-│       ├── components/
-│       ├── contexts/
-│       ├── hooks/
-│       ├── pages/
-│       └── utils/     # Regex parsers for HTML tags
-└── backend/           # Node.js + Express API
-    └── src/
-        ├── controllers/
-        ├── middlewares/ # RBAC and Tenant validation
-        ├── models/
-        └── routes/
+signature-studio/
+├── app/
+│   ├── (app)/
+│   │   ├── history/
+│   │   ├── settings/
+│   │   │   └── appearance/
+│   │   ├── signatures/
+│   │   └── team/
+│   ├── globals.css
+│   └── layout.tsx
+├── components/
+│   ├── font-size-selector.tsx
+│   ├── theme-toggle.tsx
+│   └── ...
+├── public/
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
+
+*The tree above is a representative overview. Individual files and folders may change as development progresses.*
 
 ---
 
@@ -95,70 +103,80 @@ Signature Studio/
 
 ### Prerequisites
 
-* Node.js 18+
-* PostgreSQL database
-* Google/Microsoft OAuth credentials
+- Node.js version compatible with the installed Next.js version.
+- npm.
 
 ### Installation
 
+Clone the repository and install the dependencies:
+
 ```bash
-# Clone the repository
 git clone https://github.com/dev-nobre/Signature-Studio.git
 cd Signature-Studio
-
-# Install backend dependencies
-cd backend
-npm install
-
-# Install frontend dependencies
-cd ../frontend
 npm install
 ```
 
-### Environment Setup
-
-Create a `.env` file inside `/backend`:
-
-```env
-PORT=5000
-DATABASE_URL=your_postgresql_connection_string
-JWT_SECRET=your_jwt_secret
-GOOGLE_CLIENT_ID=your_google_oauth_client_id
-```
-
-### Running
+### Run the Development Server
 
 ```bash
-# Start the backend (from /backend)
-npm run dev
-
-# Start the frontend (from /frontend)
 npm run dev
 ```
 
-* Frontend runs on `http://localhost:5173`
-* Backend runs on `http://localhost:5000`
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+The application supports hot reloading during development.
+
+### Run Linting
+
+```bash
+npm run lint
+```
+
+### Create a Production Build
+
+```bash
+npm run build
+```
+
+To run the production build locally:
+
+```bash
+npm run start
+```
+
+---
+
+## Development Workflow
+
+The project uses feature branches to keep changes focused and easier to review.
+
+Examples:
+
+```text
+feat/appearance-settings
+feat/signature-editor
+```
+
+Commit messages follow the Conventional Commits convention:
+
+```text
+feat: add appearance settings
+fix: synchronize theme preferences
+docs: update project README
+```
+
+Run linting and the production build before considering a change complete.
 
 ---
 
 ## Roadmap
 
-- [x] Initial repository setup and architecture planning
-- [ ] OAuth integration (Google & Microsoft)
-- [ ] Multi-tenant database schema & RBAC middleware
-- [ ] Dynamic Form Builder core logic (Regex HTML parser)
-- [ ] UI/UX Layout (Sidebar, Live Preview, Dark/Light mode)
-- [ ] Audit Logs module
-- [ ] Export to HTML/Copy to clipboard functionality
-
----
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-<div align="center">
-  Built by <a href="https://github.com/dev-nobre">Gustavo Nobre</a>
-</div>
+- [x] Initial Next.js application setup
+- [x] Application layout and navigation
+- [x] Settings page structure
+- [x] Light and dark theme preferences
+- [x] Font size preferences
+- [ ] Complete and validate system theme synchronization
+- [ ] Signature editor interface
+- [ ] Dynamic signature templates
+- [ ] Live signature
